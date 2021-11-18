@@ -1,18 +1,29 @@
-
+from os import write
 import streamlit as st
 import pandas as pd
 import numpy as np
 from PIL import Image
 from sklearn.model_selection import train_test_split
 import xgboost as xg
+import plotly_express as px
 
 
 
 
 
 st.title('House Price Predictor')
-st.write('DISCLAIMER')
-st.write('This tool is for educational purposes only')
+
+st.write('Below are the descriptions of the features')
+
+st.write('waterfront - A dummy variable for whether the apartment was overlooking the waterfront or not')
+
+st.write('view - An index from 0 to 4 of how good the view of the property was')
+
+st.write("condition - An index from 1 to 5 on the condition of the apartment")
+
+st.write("grade - An index from 1 to 13, where 1-3 falls short of building construction and design, 7 has an average level of construction and design, and 11-13 have a high quality level of construction and design")
+
+
 st.sidebar.header('House Features')
 image = Image.open('house.jpg')
 st.image(image, '')
@@ -76,3 +87,87 @@ salary = model.predict(user_data)
 st.subheader('House Price is')
 st.subheader('$'+str(np.round(salary[0], 2)))
 
+
+
+
+
+
+global df
+#configuration
+
+#title of the app
+st.title("Data Vizualization")
+
+#add  sidebar
+st.sidebar.subheader("Visualization Settings")
+
+
+#setup file upload
+uploaded_file=st.sidebar.file_uploader(label="Upload your CSV or Excel file.",type=['csv','xlsx'] )
+
+
+if uploaded_file is not None:
+    print("hello")
+    try:
+     df= pd.read_csv(uploaded_file)
+    except Exception as e:
+     print(e)
+     df=pd.read_excel(uploaded_file)
+
+global numeric_columns
+    
+try:
+      st.write(df)
+      numeric_columns= list(df.select_dtypes(['float','int']).columns)
+except Exception as e:
+      print(e)
+      st.write('Please upload file to the application')
+
+#add a select widget to the sidebar
+
+chart_select=st.sidebar.selectbox(
+         label="select the chart type",
+         options=['Scatterplots','lineplots','Histogram','Boxplot']
+     )
+
+
+if chart_select=='Scatterplots':
+    st.sidebar.subheader("Scatterplot Settings")
+    try:
+          x_values= st.sidebar.selectbox('X axis',options=numeric_columns)
+          y_values= st.sidebar.selectbox('Y axis',options=numeric_columns)
+          plot= px.scatter(data_frame=df, x= x_values, y=y_values)
+          st.plotly_chart(plot)
+    except Exception as e:
+           print(e)
+
+
+if chart_select=='lineplots':
+    st.sidebar.subheader('lineplot settings')
+    try:
+          x_values= st.sidebar.selectbox('X axis',options=numeric_columns)
+          y_values= st.sidebar.selectbox('Y axis',options=numeric_columns)
+          plot= px.line(data_frame=df, x= x_values, y=y_values)
+          st.plotly_chart(plot)
+    except Exception as e:
+           print(e)
+
+if chart_select=='Histogram':
+    st.sidebar.subheader('Histogram settings')
+    try:
+          x_values= st.sidebar.selectbox('X axis',options=numeric_columns)
+          y_values= st.sidebar.selectbox('Y axis',options=numeric_columns)
+          plot= px.bar(data_frame=df, x= x_values, y=y_values,)
+          st.plotly_chart(plot)
+    except Exception as e:
+           print(e)
+
+if chart_select=='Boxplot':
+    st.sidebar.subheader('Boxplot settings')
+    try:
+          x_values= st.sidebar.selectbox('X axis',options=numeric_columns)
+          y_values= st.sidebar.selectbox('Y axis',options=numeric_columns)
+          plot= px.box(data_frame=df, x= x_values, y=y_values,)
+          st.plotly_chart(plot)
+    except Exception as e:
+           print(e)
