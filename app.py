@@ -15,11 +15,11 @@ st.title('House Price Predictor')
 
 st.write('Below are the descriptions of the features')
 
-st.write('waterfront - A dummy variable for whether the apartment was overlooking the waterfront or not')
+st.write('waterfront - A dummy variable for whether the property was overlooking the waterfront or not')
 
 st.write('view - An index from 0 to 4 of how good the view of the property was')
 
-st.write("condition - An index from 1 to 5 on the condition of the apartment")
+st.write("condition - An index from 1 to 5 on the condition of the property")
 
 st.write("grade - An index from 1 to 13, where 1-3 falls short of building construction and design, 7 has an average level of construction and design, and 11-13 have a high quality level of construction and design")
 
