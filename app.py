@@ -15,7 +15,7 @@ st.title('House Price Predictor')
 
 st.write('Below are the descriptions of the features')
 
-st.write('waterfront - A dummy variable for whether the property was overlooking the waterfront or not')
+st.write('waterfront - Variable for whether the property was overlooking the waterfront or not')
 
 st.write('view - An index from 0 to 4 of how good the view of the property was')
 
@@ -96,7 +96,7 @@ global df
 #configuration
 
 #title of the app
-st.title("Data Vizualization")
+st.title("Data Vizualization ( Advanced )")
 
 #add  sidebar
 st.sidebar.subheader("Visualization Settings")
